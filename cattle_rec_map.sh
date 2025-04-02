@@ -47,4 +47,22 @@ cat UMC_marker_names_180910.zip.md5
 # check that the md5sum matches!
 unzip UMC_marker_names_180910.zip
 
+# Qanbari and Wittenburg (2020) Male recombination map of the autosomal genome in German Holstein
+# https://doi.org/10.1186/s12711-020-00593-z
+mkdir -p Qanbari_and_Wittenburg_2020
+cd Qanbari_and_Wittenburg_2020
+wget https://static-content.springer.com/esm/art%3A10.1186%2Fs12711-020-00593-z/MediaObjects/12711_2020_593_MOESM2_ESM.xlsx
+# Manually convert 12711_2020_593_MOESM2_ESM.xlsx to 12711_2020_593_MOESM2_ESM.csv
+# Hmm, this file has some rounded up physical position.
+# I have contacted Doerte and TODO
+cd ..
 
+# Brekke et al. (2023) Variation and genetic control of individual recombination rates in Norwegian Red dairy cattle
+# https://doi.org/10.3168/jds.2022-22368
+mkdir -p Brekke_et_al_2023
+cd Brekke_et_al_2023
+# Tried wget or curl to download files from https://figshare.com/articles/dataset/Autosomal_linkage_map_NRF/20976067/1?file=37270660
+# but couldn't make it work:(
+# Manually save all_chr_linkage_map_JDS.xls into this folder
+# Manually convert all_chr_linkage_map_JDS.xls to all_chr_linkage_map_JDS.csv
+cd ..
