@@ -42,9 +42,11 @@ map$Rate <- (map$recrate_adjacent_deterministic * 100) /
 head(map)
 
 RateMap <- map[, c("Chr", "Position", "Rate", "cM_deterministic")]
+# RateMap <- map[, c("Chr", "Position", "Rate", "cM_likelihood")]
 colnames(RateMap) <- c("Chromosome", "Position(bp)", "Rate(cM/Mb)", "Map(cM)")
 chrs <- unique(RateMap$Chr)
 for (chr in chrs) {
+  # chr <- 1
   sel <- RateMap$Chr == chr
   tmp <- RateMap[sel, ]
   tmp <- tmp[order(tmp$Position), ]
