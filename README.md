@@ -1,5 +1,5 @@
 # stdpopsim_cattle_rec_map
-Converting published recombination rate maps for cattle for [stdpopsim](https://github.com/popsim-consortium/stdpopsim).
+Converting published cattle recombination rate maps for [stdpopsim](https://github.com/popsim-consortium/stdpopsim).
 
 [Here](https://tskit.dev/msprime/docs/stable/api.html#msprime.RateMap.read_hapmap)
 is the description of the RateMap file that we are aiming to produce and
