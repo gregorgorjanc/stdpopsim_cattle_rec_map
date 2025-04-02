@@ -54,7 +54,8 @@ cd Qanbari_and_Wittenburg_2020
 wget https://static-content.springer.com/esm/art%3A10.1186%2Fs12711-020-00593-z/MediaObjects/12711_2020_593_MOESM2_ESM.xlsx
 # Manually convert 12711_2020_593_MOESM2_ESM.xlsx to 12711_2020_593_MOESM2_ESM.csv
 # Hmm, this file has some rounded up physical position.
-# I have contacted Doerte and TODO
+# I have contacted Doerte Wittenburg who sent me physical_map.txt file.
+Rscript ./map_to_RateMap.R
 cd ..
 
 # Brekke et al. (2023) Variation and genetic control of individual recombination rates in Norwegian Red dairy cattle

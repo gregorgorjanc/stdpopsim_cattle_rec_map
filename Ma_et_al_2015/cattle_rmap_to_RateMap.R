@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-# setwd(dir = "~/Storages/GitBox/popsim/stdpopsim/cattle_rec_map/Ma_et_al_2015/")
+# setwd(dir = "~/Storages/GitBox/popsim/stdpopsim/stdpopsim_cattle_rec_map/Ma_et_al_2015/")
 
 # This script imports the recombination map from Ma et al. (2015), which
 # was based on a modified UMD3.1 assembly, and remaps it to the new ARS-UCD1.2.
