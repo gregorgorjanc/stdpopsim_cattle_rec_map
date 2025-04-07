@@ -2,12 +2,12 @@
 #!/bin/bash
 # Process cattle recombination rate maps for stdpopsim
 
-# Prepare by creating and entering cattle_rec_map directory
-# git clone
+# Prepare and enter the repo
+# git clone TODO
 # cd stdpopsim_cattle_rec_map
 
-if [[ $(basename $(pwd)) != "cattle_rec_map" ]]; then
-    echo "We must be in the cattle_rec_map directory"
+if [[ $(basename $(pwd)) != "stdpopsim_cattle_rec_map" ]]; then
+    echo "We must be in the stdpopsim_cattle_rec_map directory"
     exit 1
 fi
 
@@ -54,7 +54,9 @@ cd Qanbari_and_Wittenburg_2020
 wget https://static-content.springer.com/esm/art%3A10.1186%2Fs12711-020-00593-z/MediaObjects/12711_2020_593_MOESM2_ESM.xlsx
 # Manually convert 12711_2020_593_MOESM2_ESM.xlsx to 12711_2020_593_MOESM2_ESM.csv
 # Hmm, this file has some rounded up physical position.
-# I have contacted Doerte Wittenburg who sent me physical_map.txt file.
+# I have contacted Doerte Wittenburg who sent me physical_map.txt file and
+# the updated map (with some markers removed due to likely assembly errors) GeneticMap_Holstein.xlsx
+# (I converted this to csv).
 Rscript ./map_to_RateMap.R
 cd ..
 
@@ -66,4 +68,5 @@ cd Brekke_et_al_2023
 # but couldn't make it work:(
 # Manually save all_chr_linkage_map_JDS.xls into this folder
 # Manually convert all_chr_linkage_map_JDS.xls to all_chr_linkage_map_JDS.csv
+# Contacted Cathrine who send a more detailed NRF_LinkageMap.txt
 cd ..
