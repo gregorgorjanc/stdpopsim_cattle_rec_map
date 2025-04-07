@@ -277,6 +277,16 @@ dev.copy(png, file = "recrate_adjacent_likelihood_vs_deterministic_log.png")
 dev.off()
 # TODO: this looks odd! - this should be effectively a straight line (more or less)
 
+for (chr in chrs) {
+  with(
+    map[map$Chr == chr, ],
+    plot(cM_likelihood ~ cM_deterministic, main = paste0("Chromosome ", chr))
+  )
+  file <- paste0("cM_likelihood_vs_deterministic_chr_", chr, ".png")
+  dev.copy(png, file = file)
+  dev.off()
+}
+
 summary(map$recrate_adjacent_likelihood)
 #       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
 # -1.700e-08  0.000e+00  0.000e+00  5.678e-04  7.834e-04  1.531e-02
