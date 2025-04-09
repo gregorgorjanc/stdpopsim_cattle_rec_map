@@ -2,8 +2,13 @@
 #!/bin/bash
 # Process cattle recombination rate maps for stdpopsim
 
+# This script is intended to make it easier to download and process
+# the recombination rate maps, but in almost all!? cases there are
+# some manual steps involved, so this script is mostly a convenience
+# documentation of the process!
+
 # Prepare and enter the repo
-# git clone TODO
+# git clone https://github.com/gregorgorjanc/stdpopsim_cattle_rec_map.git
 # cd stdpopsim_cattle_rec_map
 
 if [[ $(basename $(pwd)) != "stdpopsim_cattle_rec_map" ]]; then
