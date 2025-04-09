@@ -238,15 +238,33 @@ for (row in which(sel)) {
   print(paste0("Row: ", row))
   print(map[row + -2:2, ])
 }
-# TODO: Ask Doerte what to do here!?
-#       This will impact the below calculation of:
-#       * Rate_deterministic
-#       * Rate_likelihood
+# The authors have left these markers in their work because they have not
+# observed any strange recombination rates around/at them, indicating that they
+# are just wrongly mapped/aligned in the assembly. We discussed that for the
+# intended purpose of this conversion - for simulation - we will remove these
+# markers and assign their recombination rate to the other marker at the same
+# position (not ideal, but we have no other information).
+for (row in which(sel)) {
+  # row <- which(sel)[1]
+  cat("\n")
+  print(paste0("Row (before edit): ", row))
+  print(map[row + -2:2, ])
+  map[row - 1, "recrate_adjacent_deterministic"] <-
+    map[row - 1, "recrate_adjacent_deterministic"] +
+    map[row, "recrate_adjacent_deterministic"]
+  map[row, ] <- NA
+  print(paste0("Row (after edit): ", row))
+  print(map[row + -2:2, ])
+}
+sel <- !is.na(map$Name)
+sum(!sel) # 29
+sum(sel) # 44602
+map <- map[sel, ]
 
 # Should we use cM_deterministic or cM_likelihood?
 # Doert says that likelihood-based approach gives better results in case of huge
 # data (as it was for Holstein) but in general that’s not true for smaller data.
-# Trying to calculate recrate_adjacent_likelihood
+# Trying to calculate recrate_adjacent_likelihood still ...
 chrs <- unique(map$Chr)
 map$recrate_adjacent_likelihood <- NA
 for (chr in chrs) {
@@ -275,7 +293,9 @@ with(
 )
 dev.copy(png, file = "recrate_adjacent_likelihood_vs_deterministic_log.png")
 dev.off()
-# TODO: this looks odd! - this should be effectively a straight line (more or less)
+# While this comparison looks odd (we could expect a straight-ish line), Doerte
+# sayd that we expect differences because the methods are quite different, so
+# the observed difference is OK!
 
 for (chr in chrs) {
   with(
@@ -290,44 +310,35 @@ for (chr in chrs) {
 summary(map$recrate_adjacent_likelihood)
 #       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
 # -1.700e-08  0.000e+00  0.000e+00  5.678e-04  7.834e-04  1.531e-02
-# TODO: where are the negative values coming from?!
+# TODO: where are the negative values coming from?! Strange ...
 summary(map$recrate_adjacent_deterministic)
 #      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-# 0.0000000 0.0003704 0.0004976 0.0005398 0.0006640 0.0027658
+# 0.0000000 0.0003704 0.0004976 0.0005401 0.0006640 0.0028053
 selL <- is.finite(map$recrate_adjacent_likelihood)
 selD <- is.finite(map$recrate_adjacent_deterministic)
 summary(map$recrate_adjacent_likelihood[selL])
 #       Min.    1st Qu.     Median       Mean    3rd Qu.       Max.
 # -1.700e-08  0.000e+00  0.000e+00  5.678e-04  7.834e-04  1.531e-02
-# TODO: where are the negative values coming from?!
+# TODO: where are the negative values coming from?! Strange ...
 summary(map$recrate_adjacent_deterministic[selD])
 #      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-# 0.0000000 0.0003704 0.0004976 0.0005398 0.0006640 0.0027658
+# 0.0000000 0.0003705 0.0004976 0.0005401 0.0006640 0.0028053
 
 summary(map$Rate_deterministic)
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
-#  0.0000  0.6983  1.1621     Inf  1.8207     Inf
-# TODO: deal with Infs - by handling inter_marker_distance == 0
-summary(map$Rate_likelihood)
-#      Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's
-# -0.000072  0.000000  0.000000       Inf  1.517572       Inf        18
-# TODO: deal with Infs - by handling inter_marker_distance == 0
-# TODO: NA's?
-selL <- is.finite(map$Rate_deterministic)
-selD <- is.finite(map$Rate_likelihood)
-summary(map$Rate_deterministic[selD])
 # Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
-# 0.00     0.70     1.16     3.09     1.82 66768.00
-summary(map$Rate_likelihood[selL])
+# 0.00     0.70     1.16     3.10     1.82 66768.00
+summary(map$Rate_likelihood)
 #  Min.   1st Qu.    Median      Mean   3rd Qu.      Max.
-# 0.000     0.000     0.000     1.676     1.516 17822.717
+# 0.000     0.000     0.000     1.673     1.516 17822.717
 
 with(map, plot(Rate_likelihood ~ Rate_deterministic))
 dev.copy(png, file = "rate_likelihood_vs_deterministic.png")
 dev.off()
 with(map, plot(Rate_likelihood ~ Rate_deterministic, log = "xy"))
 dev.copy(png, file = "rate_likelihood_vs_deterministic_log.png")
-# TODO: this looks odd! - this should be effectively a straight line (more or less)
+# While this comparison looks odd (we could expect a straight-ish line), Doerte
+# sayd that we expect differences because the methods are quite different, so
+# the observed difference is OK!
 
 # Change format from "distance between marker and it's PREVIOUS marker" to
 # "distance between marker and it's NEXT marker" to satisfy HapMap/RateMap format
@@ -434,7 +445,7 @@ for (chr in chrs) {
 
 for (type in c("deterministic", "likelihood")) {
   # type <- "deterministic"
-  dir.create(path = type)
+  dir.create(path = type, showWarnings = FALSE)
   RateMap <- map2[, c("Chr", "bp_position", paste0(c("Rate_", "cM_"), type))]
   colnames(RateMap) <- c("Chromosome", "Position(bp)", "Rate(cM/Mb)", "Map(cM)")
   chrs <- unique(RateMap$Chr)
