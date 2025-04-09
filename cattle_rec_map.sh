@@ -58,10 +58,12 @@ mkdir -p Qanbari_and_Wittenburg_2020
 cd Qanbari_and_Wittenburg_2020
 wget https://static-content.springer.com/esm/art%3A10.1186%2Fs12711-020-00593-z/MediaObjects/12711_2020_593_MOESM2_ESM.xlsx
 # Manually convert 12711_2020_593_MOESM2_ESM.xlsx to 12711_2020_593_MOESM2_ESM.csv
-# Hmm, this file has some rounded up physical position.
-# I have contacted Doerte Wittenburg who sent me physical_map.txt file and
+# Hmm, this file has some rounded-up physical position.
+# I have contacted Doerte Wittenburg, who sent me physical_map.txt file and
 # the updated map (with some markers removed due to likely assembly errors) GeneticMap_Holstein.xlsx
-# (I converted this to csv).
+# (I converted this to csv). This last file is from the work published in
+# Melzer et al. (2023) CLARITY: a Shiny app for interactive visualisation of the bovine physical-genetic map
+# https://doi.org/10.3389/fgene.2023.1082782
 Rscript ./map_to_RateMap.R
 cd ..
 
