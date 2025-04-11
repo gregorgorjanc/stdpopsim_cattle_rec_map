@@ -2,7 +2,7 @@
 
 # setwd(dir = "~/Storages/GitBox/popsim/stdpopsim/stdpopsim_cattle_rec_map/Brekke_et_al_2023/")
 
-# This script imports two files and merges them to create a RateMap object and
+# This script imports two files and merges them to create a HapMap object and
 # plots the rate and map along each chromosome.
 
 map <- read.table(
@@ -24,6 +24,17 @@ summary(map$cM)
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
 # 0.00   25.04   45.01   46.05   63.95  126.08
 # --> all good here
+
+chrs <- unique(map$chr)
+tot <- c(0, 0, 0)
+for (chr in chrs) {
+  # chr <- 1
+  sel <- map$chr == chr
+  tot <- tot +
+    c(max(map$male_cM[sel]), max(map$female_cM[sel]), max(map$cM[sel]))
+}
+tot
+# 2493.052 2308.798 2400.925
 
 map$bp_diff <- NA
 chrs <- unique(map$chr)
@@ -147,17 +158,18 @@ for (chr in chrs) {
   }
 }
 
-RateMap <- map2[, c("chr", "bp", "recRate", "cM")]
-colnames(RateMap) <- c("Chromosome", "Position(bp)", "Rate(cM/Mb)", "Map(cM)")
-chrs <- unique(RateMap$chr)
-head(RateMap)
+HapMap <- map2[, c("chr", "bp", "recRate", "cM")]
+colnames(HapMap) <- c("Chromosome", "Position(bp)", "Rate(cM/Mb)", "Map(cM)")
+chrs <- unique(HapMap$Chromosome)
+head(HapMap)
 for (chr in chrs) {
   # chr <- 1
-  sel <- RateMap$Chromosome == chr
-  tmp <- RateMap[sel, ]
+  sel <- HapMap$Chromosome == chr
+  tmp <- HapMap[sel, ]
   tmp <- tmp[order(tmp$`Position(bp)`), ]
+  # head(tmp)
   write.table(
-    file = paste0("chr_", chr, "_ratemap.txt"),
+    file = paste0("chr_", chr, "_HapMap.txt"),
     x = tmp,
     row.names = FALSE,
     col.names = TRUE,

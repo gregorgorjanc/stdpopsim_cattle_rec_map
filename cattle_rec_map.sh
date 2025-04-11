@@ -76,4 +76,10 @@ cd Brekke_et_al_2023
 # Manually save all_chr_linkage_map_JDS.xls into this folder
 # Manually convert all_chr_linkage_map_JDS.xls to all_chr_linkage_map_JDS.csv
 # Contacted Cathrine who send a more detailed NRF_LinkageMap.txt (including average map)
+Rscript ./map_to_HapMap.R
+mkdir Brekke2023_NRF_ARS-UCD1.2
+cp chr_*_HapMap.txt Brekke2023_NRF_ARS-UCD1.2
+tar -czvf Brekke2023_NRF_ARS-UCD1.2.tar.gz Brekke2023_NRF_ARS-UCD1.2
+rm -Rf Brekke2023_NRF_ARS-UCD1.2
+rm -f chr_*_HapMap.txt
 cd ..
