@@ -274,13 +274,13 @@ for (chr in chrs) {
     c(0, map$cM_likelihood[sel] / 100)
     # / 100 to convert to Morgans (to keep the below equations the same)
   )
-  map$Rate_deterministic <- (map$recrate_adjacent_deterministic * 100) /
-    (map$inter_marker_distance / 10^6)
-  map$Rate_likelihood <- (map$recrate_adjacent_likelihood * 100) /
-    (map$inter_marker_distance / 10^6)
-  # * 100 to convert M to cM
-  # / 10^6 to get cM / Mbp
 }
+map$Rate_deterministic <- (map$recrate_adjacent_deterministic * 100) /
+  (map$inter_marker_distance / 10^6)
+map$Rate_likelihood <- (map$recrate_adjacent_likelihood * 100) /
+  (map$inter_marker_distance / 10^6)
+# * 100 to convert M to cM
+# / 10^6 to get cM / Mbp
 head(map)
 head(map, n = 20)
 
@@ -451,9 +451,9 @@ for (type in c("deterministic", "likelihood")) {
   chrs <- unique(RateMap$Chr)
   for (chr in chrs) {
     # chr <- 1
-    sel <- RateMap$Chr == chr
+    sel <- RateMap$Chromosome == chr
     tmp <- RateMap[sel, ]
-    tmp <- tmp[order(tmp$Position), ]
+    tmp <- tmp[order(tmp$`Position(bp)`), ]
     write.table(
       file = paste0(type, "/chr_", chr, "_ratemap.txt"),
       x = tmp,

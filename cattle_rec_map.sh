@@ -73,5 +73,5 @@ cd Brekke_et_al_2023
 # but couldn't make it work:(
 # Manually save all_chr_linkage_map_JDS.xls into this folder
 # Manually convert all_chr_linkage_map_JDS.xls to all_chr_linkage_map_JDS.csv
-# Contacted Cathrine who send a more detailed NRF_LinkageMap.txt
+# Contacted Cathrine who send a more detailed NRF_LinkageMap.txt (including average map)
 cd ..
