@@ -78,7 +78,7 @@ cd Brekke_et_al_2023
 # Contacted Cathrine who send a more detailed NRF_LinkageMap.txt (including average map)
 Rscript ./map_to_HapMap.R
 mkdir Brekke2023_NRF_ARS-UCD1.2
-cp chr_*_HapMap.txt Brekke2023_NRF_ARS-UCD1.2
+cp chr_*_HapMap.txt README.txt Brekke2023_NRF_ARS-UCD1.2
 tar -czvf Brekke2023_NRF_ARS-UCD1.2.tar.gz Brekke2023_NRF_ARS-UCD1.2
 rm -Rf Brekke2023_NRF_ARS-UCD1.2
 rm -f chr_*_HapMap.txt
