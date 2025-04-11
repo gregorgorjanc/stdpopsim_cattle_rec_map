@@ -15,3 +15,9 @@ The total length was estimated to be 2,493 cM for males,
 2,309 cM for females, and 2,401 cM averaged across sexes.
 
 Brekke et al. (2023) https://doi.org/10.3168/jds.2022-22368
+
+The genetic map is stored in the HapMap format with columns:
+Chromosome, Position(bp), Rate(cM/Mb), and Map(cM).
+Note that the rate value is for the interval between the current
+and the next marker, while the map value is the cumulative
+genetic distance from the start of the chromosome to the current marker.
